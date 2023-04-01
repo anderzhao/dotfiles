@@ -1,0 +1,19 @@
+(use-package django-theme
+  :init (load-theme 'django t))
+
+(set-face-attribute 'company-tooltip-common nil :foreground "#f8f8f8" :background "#00291d")
+(set-face-attribute 'company-tooltip-selection nil :foreground "#00291d" :background "#f8f8f8")
+(set-face-attribute 'company-tooltip-annotation nil :foreground "#96dd3b")
+(set-face-attribute 'company-tooltip nil :foreground "002116" :background "#d0ffd0")
+(set-face-attribute 'company-scrollbar-fg nil :background "#00291d")
+(set-face-attribute 'company-scrollbar-bg nil :background "#f8f8f8")
+
+(setq company-tooltip-align-annotations t)
+(setq company-tooltip-minimum-width 50)
+(setq company-tooltip-maximum-width 70)
+(setq company-tooltip-minimum-height 10)
+(setq company-tooltip-maximum-height 30)
+(setq company-tooltip-offset-display 'scrollbar)
+(setq company-tooltip-flip-when-above t)
+
+(provide 'init-ui)

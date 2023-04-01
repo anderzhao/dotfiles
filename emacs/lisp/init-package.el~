@@ -1,0 +1,148 @@
+(setq package-user-dir "~/.config/emacs/packages/")
+
+(setq package-archives '(("melpa" .  "https://melpa.org/packages/")
+			 ("elpa"  .  "https://elpa.gnu.org/packages/")
+			 ("org"   .  "https://orgmode.org/elpa/")))
+
+(require 'package)
+(unless (bound-and-true-p package--initialized)
+  (package-initialize))
+(unless package-archive-contents
+  (package-refresh-contents))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-and-compile
+  (setq use-package-always-ensure    t)
+  (setq use-package-always-defer     t)
+  (setq use-package-always-demand    nil)
+  (setq use-package-expand-minimally t)
+  (setq use-package-verbose          t))
+
+(use-package restart-emacs)
+
+(use-package ivy
+  :ensure t
+  :diminish ivy-mode
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-display-style 'fancy)
+  (setq ivy-initial-inputs-alist nil)
+  (setq ivy-wrap t)
+  (setq ivy-height 15)
+  (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-immediate-done)
+  (define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done))
+
+(use-package counsel
+  :ensure t
+  :after ivy
+  :config
+  (counsel-mode 1)
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-ignore-order)))
+  (setq ivy-initial-inputs-alist nil))
+
+(use-package swiper
+  :ensure t
+  :after ivy
+  :bind (("C-s" . swiper)
+         ("C-r" . swiper-backward))
+  :config
+  (setq swiper-action-recenter t)
+  (setq swiper-include-line-number-in-search t))
+
+(global-set-key (kbd "C-c r") 'ivy-resume)
+
+(use-package ivy-rich
+  :ensure t
+  :init
+  (ivy-rich-mode 1)
+  :config
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
+
+(use-package all-the-icons-ivy-rich
+  :ensure t
+  :init (all-the-icons-ivy-rich-mode 1))
+
+(use-package company
+  :ensure t
+  :defer t
+  :init
+  (global-company-mode)
+  :config
+  (setq company-tooltip-align-annotations t)
+  (setq company-minimum-prefix-length 1)
+  (setq company-idle-delay 0.0)
+  (setq company-selection-wrap-around t)
+  (setq company-tooltip-flip-when-above t)
+  (setq company-require-match 'never)
+  (setq company-global-modes '(not eshell-mode comint-mode))
+  :bind (:map company-active-map
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous)
+              ("<tab>" . company-complete-selection)))
+
+(use-package company-box
+  :ensure t
+  :hook (company-mode . company-box-mode))
+
+;; Company (auto-completion) - Continued
+
+;; Company backends for different major modes
+(use-package company-lsp
+  :ensure t
+  :after (company lsp-mode)
+  :config
+  (push 'company-lsp company-backends))
+
+(use-package company-quickhelp
+  :ensure t
+  :after company
+  :config
+  (company-quickhelp-mode 1))
+
+;; Optional: Configure company-emoji for emoji completion support
+(use-package company-emoji
+  :ensure t
+  :after company
+  :config
+  (add-to-list 'company-backends 'company-emoji))
+
+;; Optional: Configure company-tabnine for AI-powered completions
+(use-package company-tabnine
+  :ensure t
+  :after company
+  :config
+  (add-to-list 'company-backends #'company-tabnine)
+  ;; To use company-tabnine exclusively, uncomment the following line
+  ;; (setq company-backends '(company-tabnine))
+  )
+
+;; Optional: Configure company-dabbrev for more flexible completion
+(use-package company
+  :config
+  (setq company-dabbrev-code-everywhere t)
+  (setq company-dabbrev-code-ignore-case t)
+  (setq company-dabbrev-downcase nil))
+
+;; Optional: Configure company-prescient for sorting and filtering
+(use-package company-prescient
+  :ensure t
+  :after company
+  :config
+  (company-prescient-mode 1)
+  (setq company-prescient-sort-length-enable nil)
+  (prescient-persist-mode 1))
+
+;; Optional: Configure company-yasnippet for snippet completion
+(use-package yasnippet
+  :ensure t
+  :init
+  (yas-global-mode 1))
+
+
+
+(provide 'init-package)
