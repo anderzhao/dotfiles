@@ -1,5 +1,7 @@
 (add-to-list 'load-path "~/.config/emacs/lisp")
 
+(set-face-attribute 'default nil :height 140)
+
 (require 'init-const)
 (require 'init-boot)
 (require 'init-kdb)
