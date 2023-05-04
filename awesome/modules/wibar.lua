@@ -1,7 +1,12 @@
 local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
+local menubar = require("menubar")
 local beautiful = require("beautiful")
+local constants = require("modules.constants")
+
+terminal = constants.terminal
+editor_cmd = constants.editor_cmd
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu

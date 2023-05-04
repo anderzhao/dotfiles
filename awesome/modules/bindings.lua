@@ -3,6 +3,7 @@ local gears = require("gears")
 local awful = require("awful")
 local contents = require("modules.constants")
 require("awful.autofocus")
+local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
 local modkey = contents.mods.m
@@ -17,7 +18,7 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 _G.global_keys = gears.table.join(
-    awful.key({ modkey,           }, "s",      awful.hotkeys_popup.show_help,
+    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
