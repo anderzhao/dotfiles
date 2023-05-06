@@ -1,4 +1,4 @@
-local init = require("module.init")
+local init = require("modules.init")
 
 local awful = init.awful
 local gears = init.gears
