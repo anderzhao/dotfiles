@@ -1,20 +1,5 @@
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
-pcall(require, "luarocks.loader")
-
-local awful = require("awful")
-local beautiful = require("beautiful")
-
-beautiful.init("/home/ander/.config/awesome/themes/default/theme.lua")
-require("modules.error")
-require("modules.layout")
-require("modules.wibar")
-require("modules.bindings")
+require("modules.setup")
+require("modules.keys")
 require("modules.rules")
 require("modules.signals")
-
--- Gaps
-beautiful.useless_gap = 5
-
--- Autostart
-awful.spawn.with_shell("picom")
+require("modules.launch")

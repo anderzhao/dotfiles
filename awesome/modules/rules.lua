@@ -1,56 +1,86 @@
-local awful = require("awful")
-local beautiful = require("beautiful")
+local init = require("modules.init")
+local keys = require("modules.keys")
 
--- {{{ Rules
--- Rules to apply to new clients (through the "manage" signal).
+local awful = init.awful
+local gears = init.gears
+local beautiful = init.beautiful
+local client_keys = keys.client_keys
+local client_buttons = keys.client_buttons
+
 awful.rules.rules = {
-    -- All clients will match this rule.
-    { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise = true,
-                     keys = _G.client_keys,
-                     buttons = _G.client_buttons,
-                     screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
-     }
+    {
+        rule = { },
+
+        properties = {
+            border_width =  beautiful.border_width,
+            -- border_color = beautiful.border_normal,
+            border_color = beautiful.border_focus,
+            focus = awful.client.focus.filter,
+            raise = true,
+            keys = client_keys,
+            buttons = client_buttons,
+            screen = awful.screen.preferred,
+            placement = awful.placement.no_overlap+awful.placement.no_offscreen
+        }
     },
 
-    -- Floating clients.
-    { rule_any = {
-        instance = {
-          "DTA",  -- Firefox addon DownThemAll.
-          "copyq",  -- Includes session name in class.
-          "pinentry",
-        },
-        class = {
-          "Arandr",
-          "Blueman-manager",
-          "Gpick",
-          "Kruler",
-          "MessageWin",  -- kalarm.
-          "Sxiv",
-          "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-          "Wpa_gui",
-          "veromix",
-          "xtightvncviewer"},
+    {
+        rule_any = {
+            instance = {
+                "DTA",
+                "copyq",
+                "pinentry"
+            },
+            class = {
+                "Arandr",
+                "Blueman-manager",
+                "Gpick",
+                "Kruler",
+                "MessageWin",
+                "Sxiv",
+                "Tor Browser",
+                "Wpa_gui",
+                "veromix",
+                "xtightvncviewer",
+            },
 
-        -- Note that the name property shown in xprop might be set slightly after creation of the client
-        -- and the name shown there might not match defined rules here.
-        name = {
-          "Event Tester",  -- xev.
+            name = {
+                "Event Tester",
+            },
+
+            role = {
+                "AlarmWindow",
+                "ConfigManager",
+                "pop-up",
+            }
         },
-        role = {
-          "AlarmWindow",  -- Thunderbird's calendar.
-          "ConfigManager",  -- Thunderbird's about:config.
-          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+
+        properties = {
+            floating = true
         }
-      }, properties = { floating = true }},
+    },
 
+    {
+        rule = {},
 
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
+        except = {
+            class = "Polybar"
+        },
+
+        callback = function(c)
+            c.shape = function(cr, w, h)
+                gears.shape.rounded_rect(cr, w, h, 15)
+            end
+        end
+    },
+
+    {
+        rule = {
+            class = "Polybar"
+        },
+
+        callback = function(c)
+            c.border_width = 0
+        end
+    }
 }
--- }}}
