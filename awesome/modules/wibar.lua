@@ -7,25 +7,6 @@ local constants = require("modules.constants")
 
 editor_cmd = constants.editor_cmd
 
--- {{{ Menu
--- Create a launcher widget and a main menu
-awesomemenu = {
-    { "edit config", editor_cmd .. " " .. awesome.conffile },
-    { "quit", function() awesome.quit() end },
- }
-
-mainmenu = awful.menu({ items = { { "awesome", awesomemenu, beautiful.awesome_icon },
-                                   { "open terminal", terminal }
-                                 }
-                        })
-
-launcher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                    menu = mainmenu })
-
- -- Menubar configuration
- menubar.utils.terminal = constants.terminal -- Set the terminal for applications that require it
- -- }}}
-
 -- {{{ Wibar
 
 -- Create a wibox for each screen and add it
@@ -62,11 +43,34 @@ end
 screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
-    -- Wallpaper
-    set_wallpaper(s)
+      -- Wallpaper
+      set_wallpaper(s)
 
-    -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+        local unfocus_icon = ""
+	local unfocus_color = "#585b70"
+
+	local empty_icon = "\f"
+	local empty_color = "#585b70"
+
+	local focus_icon = ""
+	local focus_color = "#b4befe"
+
+	local update_tags = function(self, c3)
+		local tagicon = self:get_children_by_id('icon_role')[1]
+		if c3.selected then
+			tagicon.text = focus_icon
+			self.fg = focus_color
+		elseif #c3:clients() == 0 then
+			tagicon.text = empty_icon
+			self.fg = empty_color
+		else
+			tagicon.text = unfocus_icon
+			self.fg = unfocus_color
+		end
+	end
+      
+      -- Each screen has its own tag table.
+      awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create a taglist widget
     s.taglist = awful.widget.taglist {
@@ -77,9 +81,32 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             spacing = beautiful.spacing,
         },
-        style = {
-            shape = gears.shape.circle
-        }
+	widget_template = {
+	   {
+	      {
+		 id = 'icon_role',
+		 font = "Font Awesome 5 Font 12",
+		 widget = wibox.widget.textbox
+	      },
+	      id = 'margin_role',
+	      top = 0,
+	      bottom = 0,
+	      left = 2,
+	      right = 2,
+	      widget = wibox.container.margin
+	   },
+	   id = 'background_role',
+	   widget = wibox.container.background,
+
+	   create_callback = function(self, c3, index, objects)
+		update_tags(self, c3)
+	   end,
+
+	   update_callback = function(self, c3, index, objects)
+	        update_tags(self, c3)
+	   end
+	},
+	
     }
 
     -- Create the wibox
@@ -87,9 +114,10 @@ awful.screen.connect_for_each_screen(function(s)
         { 
             position = "top",
             screen = s,
-            height = beautiful.bar_height,
+            -- height = beautiful.bar_height,
+	    height = 16,
             type = "dock",
-		    bg = "#00000000",
+		    bg = "#000000",
 
         })
 
