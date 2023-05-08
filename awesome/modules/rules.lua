@@ -58,29 +58,5 @@ awful.rules.rules = {
         properties = {
             floating = true
         }
-    },
-
-    {
-        rule = {},
-
-        except = {
-            class = "Polybar"
-        },
-
-        callback = function(c)
-            c.shape = function(cr, w, h)
-                gears.shape.rounded_rect(cr, w, h, 15)
-            end
-        end
-    },
-
-    {
-        rule = {
-            class = "Polybar"
-        },
-
-        callback = function(c)
-            c.border_width = 0
-        end
     }
 }
