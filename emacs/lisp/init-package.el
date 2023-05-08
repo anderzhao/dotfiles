@@ -135,4 +135,6 @@
   :init
   (yas-global-mode 1))
 
+(use-package lua-mode)
+
 (provide 'init-package)
