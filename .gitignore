@@ -1,2 +1,11 @@
 yay/
 .DS_Store
+emacs/auto-save-list/
+pavucontrol.ini
+pulse/
+QtProject.conf
+VirtualBox/
+emacs/packages/
+dconf/
+emacs/recentf
+
