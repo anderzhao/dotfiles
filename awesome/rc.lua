@@ -1,0 +1,5 @@
+require("modules.setup")
+require("modules.keys")
+require("modules.rules")
+require("modules.signals")
+require("modules.launch")
