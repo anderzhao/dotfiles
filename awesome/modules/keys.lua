@@ -9,24 +9,22 @@ local awesome = init.awesome
 
 local _M = {}
 
---- global ---
+--- Global keys ---
 _M.global_keys = gears.table.join(
-    --- tag and window ---
+
     awful.key({ modkey }, "Left", awful.tag.viewprev),
     awful.key({ modkey }, "Right", awful.tag.viewnext),
     awful.key({ modkey }, "Escape", awful.tag.history.restore),
     awful.key({ modkey }, "j", function() awful.client.focus.byidx( 1) end),
     awful.key({ modkey }, "k", function() awful.client.focus.byidx(-1) end),
-    awful.key({ modkey }, "l", function() awful.tag.incmwfact( 0.05) end),
-    awful.key({ modkey }, "h", function() awful.tag.incmwfact(-0.05) end),
+
+    -- Layout manipulation
     awful.key({ modkey, "Shift" }, "j", function() awful.client.swap.byidx( 1) end),
     awful.key({ modkey, "Shift" }, "k", function() awful.client.swap.byidx(-1) end),
-    awful.key({ modkey, "Shift" }, "h", function() awful.tag.incnmaster( 1, nil, true) end),
-    awful.key({ modkey, "Shift" }, "l", function() awful.tag.incnmaster(-1, nil, true) end),
-    awful.key({ modkey, "Control" }, "h", function() awful.tag.incncol( 1, nil, true) end),
-    awful.key({ modkey, "Control" }, "l", function() awful.tag.incncol(-1, nil, true) end),
-    awful.key({ modkey, "Control" }, "j", function() awful.layout.inc(1) end),
-    awful.key({ modkey, "Control" }, "k", function() awful.screen.focus_relative( 1) end),
+    awful.key({ modkey, "Control" }, "j", function() awful.screen.focus_relative( 1) end),
+    awful.key({ modkey, "Control" }, "k", function() awful.screen.focus_relative(-1) end),
+    -- awful.key({ modkey }, "space", function () awful.layout.inc( 1) end),
+    -- awful.key({ modkey, "Shift" }, "space", function () awful.layout.inc(-1) end),
     awful.key({ modkey }, "Tab", function()
         awful.client.focus.history.previous()
         if client.focus then
@@ -34,30 +32,46 @@ _M.global_keys = gears.table.join(
         end
     end),
 
-    --- system controls ---
+    -- Standard program
+    awful.key({ modkey }, "l", function() awful.tag.incmwfact( 0.05) end),
+    awful.key({ modkey }, "h", function() awful.tag.incmwfact(-0.05) end),
+    awful.key({ modkey, "Shift" }, "h", function() awful.tag.incnmaster( 1, nil, true) end),
+    awful.key({ modkey, "Shift" }, "l", function() awful.tag.incnmaster(-1, nil, true) end),
+    awful.key({ modkey, "Control" }, "h", function() awful.tag.incncol( 1, nil, true) end),
+    awful.key({ modkey, "Control" }, "l", function() awful.tag.incncol(-1, nil, true) end),
+
+    --- System controls ---
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift" }, "q", awesome.quit),
     -- awful.key({ modkey, "Shift" }, "s", function() awful.util.spawn("shutdown now") end),
     -- awful.key({ modkey, "Shift" }, "r", function() awful.util.spawn("reboot") end),
 
-    --- appplications ---
-    awful.key({ modkey }, "Return", function() awful.spawn(init.terminal) end),
-    awful.key({ modkey }, "r", function() awful.util.spawn("rofi -show drun") end),
-    awful.key({ modkey }, "w", function() awful.util.spawn("rofi -show window") end),
-    awful.key({ modkey }, "b", function() awful.util.spawn("firefox") end),
-    awful.key({ modkey }, "e", function() awful.util.spawn("emacs") end),
-    awful.key({ modkey }, "t", function() awful.util.spawn("telegram-desktop") end),
-
-    --- media ---
+    --- Media ---
     awful.key({}, "XF86AudioRaiseVolume", function() awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ +2%") end),
     awful.key({}, "XF86AudioLowerVolume", function() awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -2%") end),
     awful.key({}, "XF86AudioMute", function() awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end),
     awful.key({}, "XF86AudioPlay", function() awful.util.spawn("playerctl play-pause") end),
     awful.key({}, "XF86AudioNext", function() awful.util.spawn("playerctl next") end),
-    awful.key({}, "XF86AudioPrev", function() awful.util.spawn("playerctl previous") end)
+    awful.key({}, "XF86AudioPrev", function() awful.util.spawn("playerctl previous") end),
+
+    --- Other ---
+    awful.key({ modkey, "Control" }, "n", function ()
+        local c = awful.client.restore()
+        if c then
+            c:emit_signal("request::activate", "key.unminimize", {raise = true})
+        end
+    end),
+
+    --- Appplications ---
+    awful.key({ modkey }, "Return", function() awful.spawn(init.terminal) end),
+    awful.key({ modkey }, "r", function() awful.util.spawn("rofi -show drun") end),
+    awful.key({ modkey }, "w", function() awful.util.spawn("rofi -show window") end),
+    awful.key({ modkey }, "b", function() awful.util.spawn("firefox") end),
+    awful.key({ modkey }, "e", function() awful.util.spawn("emacs") end),
+    awful.key({ modkey }, "t", function() awful.util.spawn("telegram-desktop") end)
 )
 
---- client keys ---
+--- Client keys ---
 _M.client_keys = gears.table.join(
     awful.key({ modkey }, "f", function(c)
         c.fullscreen = not c.fullscreen
@@ -68,6 +82,7 @@ _M.client_keys = gears.table.join(
     awful.key({ modkey, "Control" }, "Return", function(c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey }, "o", function(c) c:move_to_screen() end),
     awful.key({ modkey }, "t", function(c) c.ontop = not c.ontop end),
+    -- awful.key({ modkey }, "n", function (c) c.minimized = true end),
     awful.key({ modkey }, "m", function(c)
         c.maximized = not c.maximized
         c:raise()

@@ -26,5 +26,3 @@ client.connect_signal("property::fullscreen", function(c)
         end
     end
 end)
-
--- beautiful.useless_gap = 4
