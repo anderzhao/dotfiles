@@ -32,7 +32,7 @@ do
     end)
 end
 
-beautiful.init("~/.config/awesome/themes/default/default_theme.lua")
+beautiful.init("~/.config/awesome/themes/default_theme.lua")
 awful.layout.layouts = {
     -- awful.layout.suit.spiral.dwindle,
     awful.layout.suit.tile
