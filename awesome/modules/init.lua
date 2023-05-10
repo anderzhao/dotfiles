@@ -2,14 +2,15 @@ pcall(require, "luarocks.loader")
 
 local _M = {}
 
-_M.root = require("root")
 _M.gears = require("gears")
 _M.awful = require("awful")
-_M.awesome = require("awesome")
 _M.naughty = require("naughty")
 _M.beautiful = require("beautiful")
-_M.screen = _M.awful.screen
-_M.client = _M.awful.client
+
+_M.root = _G.root
+_M.screen = _G.screen
+_M.client = _G.client
+_M.awesome = _G.awesome
 
 _M.terminal = "alacritty"
 _M.editor = "emacs"
