@@ -1,0 +1,24 @@
+[submodule "emacs/packages/forge"]
+	path = emacs/packages/forge
+	url = https://github.com/magit/forge.git
+[submodule "emacs/packages/with-editor"]
+	path = emacs/packages/with-editor
+	url = https://github.com/magit/with-editor.git
+[submodule "emacs/packages/dash"]
+	path = emacs/packages/dash
+	url = https://github.com/magnars/dash.el.git
+[submodule "emacs/packages/transient"]
+	path = emacs/packages/transient
+	url = https://github.com/magit/transient.git
+[submodule "emacs/packages/compat"]
+	path = emacs/packages/compat
+	url = https://github.com/emacs-compat/compat.git
+[submodule "emacs/packages/magit"]
+	path = emacs/packages/magit
+	url = https://github.com/magit/magit.git
+[submodule "emacs/themes/solarized"]
+	path = emacs/themes/solarized
+	url = https://github.com/bbatsov/solarized-emacs.git
+[submodule "org-mode"]
+	path = emacs/packages/org-mode
+	url = https://code.orgmode.org/bzg/org-mode.git
