@@ -1,2 +1,6 @@
 .DS_Store
 .vscode
+/emacs/emacs_auto_save
+/emacs/emacs_backup
+/emacs/eshell
+/emacs/transient
