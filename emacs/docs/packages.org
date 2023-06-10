@@ -1,0 +1,20 @@
+#+TITLE: Packages
+#+AUTHOR: Ander Z
+#+DATE: <2023-06-04 Sun>
+
+
+
+* Package Management
+1. Add a new package
+   #+begin_src shell
+     git submodule add <repo url> </path/to/package>
+   #+end_src
+2. Remove a package
+   #+begin_src shell
+     git submodule deinit -f </path/to/package>
+     git rm -f </path/to/package>
+     rm -rf .git/modules/</path/to/package>
+   #+end_src
+
+
+   
