@@ -1,24 +1,24 @@
-[submodule "emacs/packages/forge"]
-	path = emacs/packages/forge
-	url = https://github.com/magit/forge.git
-[submodule "emacs/packages/with-editor"]
-	path = emacs/packages/with-editor
-	url = https://github.com/magit/with-editor.git
-[submodule "emacs/packages/dash"]
-	path = emacs/packages/dash
+[submodule "emacs/extensions/use-package"]
+	path = emacs/extensions/use-package
+	url = https://github.com/jwiegley/use-package.git
+[submodule "emacs/extensions/dash"]
+	path = emacs/extensions/dash
 	url = https://github.com/magnars/dash.el.git
-[submodule "emacs/packages/transient"]
-	path = emacs/packages/transient
-	url = https://github.com/magit/transient.git
-[submodule "emacs/packages/compat"]
-	path = emacs/packages/compat
+[submodule "emacs/extensions/with-editor"]
+	path = emacs/extensions/with-editor
+	url = https://github.com/magit/with-editor.git
+[submodule "emacs/extensions/compat"]
+	path = emacs/extensions/compat
 	url = https://github.com/emacs-compat/compat.git
-[submodule "emacs/packages/magit"]
-	path = emacs/packages/magit
+[submodule "emacs/extensions/magit"]
+	path = emacs/extensions/magit
 	url = https://github.com/magit/magit.git
-[submodule "emacs/themes/solarized"]
-	path = emacs/themes/solarized
-	url = https://github.com/bbatsov/solarized-emacs.git
-[submodule "org-mode"]
-	path = emacs/packages/org-mode
+[submodule "emacs/extensions/org-mode"]
+	path = emacs/extensions/org-mode
 	url = https://code.orgmode.org/bzg/org-mode.git
+[submodule "emacs/extensions/swiper"]
+	path = emacs/extensions/swiper
+	url = https://github.com/abo-abo/swiper.git
+[submodule "emacs/extensions/company-mode"]
+	path = emacs/extensions/company-mode
+	url = https://github.com/company-mode/company-mode.git
