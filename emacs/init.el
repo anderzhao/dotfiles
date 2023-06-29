@@ -68,6 +68,8 @@
 (add-to-list 'load-path (concat emacs-extension-dir "use-package/"))
 (require 'use-package)
 
+(load-theme 'tango-dark t)
+
 (use-package compat
   :load-path "~/.config/emacs/extensions/compat/")
 (use-package dash
