@@ -94,3 +94,7 @@
 (use-package company
   :load-path "~/.config/emacs/extensions/company-mode"
   :config (global-company-mode))
+
+(use-package yaml-mode
+  :load-path "~/.config/emacs/extensions/yaml-mode"
+  :mode ("\\.yml\\'" . yaml-mode))
