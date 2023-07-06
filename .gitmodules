@@ -25,3 +25,57 @@
 [submodule "emacs/extensions/yaml-mode"]
 	path = emacs/extensions/yaml-mode
 	url = https://github.com/yoshiki/yaml-mode.git
+[submodule "emacs/extensions/move-dup"]
+	path = emacs/extensions/move-dup
+	url = https://github.com/wyuenho/move-dup.git
+[submodule "emacs/extensions/benchmark-init"]
+	path = emacs/extensions/benchmark-init
+	url = https://github.com/dholm/benchmark-init-el.git
+[submodule "emacs/extensions/ace-window"]
+	path = emacs/extensions/ace-window
+	url = https://github.com/abo-abo/ace-window.git
+[submodule "emacs/extensions/avy"]
+	path = emacs/extensions/avy
+	url = https://github.com/abo-abo/avy.git
+[submodule "emacs/extensions/dracula-theme"]
+	path = emacs/extensions/dracula-theme
+	url = https://github.com/dracula/emacs.git
+[submodule "emacs/extensions/which-key"]
+	path = emacs/extensions/which-key
+	url = https://github.com/justbur/emacs-which-key.git
+[submodule "emacs/extensions/alert"]
+	path = emacs/extensions/alert
+	url = https://github.com/jwiegley/alert.git
+[submodule "emacs/extensions/evil-nerd-commenter"]
+	path = emacs/extensions/evil-nerd-commenter
+	url = https://github.com/redguardtoo/evil-nerd-commenter.git
+[submodule "emacs/extensions/ws-butler"]
+	path = emacs/extensions/ws-butler
+	url = https://github.com/lewang/ws-butler.git
+[submodule "emacs/extensions/origami"]
+	path = emacs/extensions/origami
+	url = https://github.com/gregsexton/origami.el.git
+[submodule "emacs/extensions/default-text-scale"]
+	path = emacs/extensions/default-text-scale
+	url = https://github.com/purcell/default-text-scale.git
+[submodule "emacs/extensions/magit-todo"]
+	path = emacs/extensions/magit-todo
+	url = https://github.com/alphapapa/magit-todos.git
+[submodule "emacs/extensions/async"]
+	path = emacs/extensions/async
+	url = https://github.com/jwiegley/emacs-async.git
+[submodule "emacs/extensions/magit-todos"]
+	path = emacs/extensions/magit-todos
+	url = https://github.com/alphapapa/magit-todos.git
+[submodule "emacs/extensions/f"]
+	path = emacs/extensions/f
+	url = https://github.com/rejeep/f.el.git
+[submodule "emacs/extensions/s"]
+	path = emacs/extensions/s
+	url = https://github.com/magnars/s.el.git
+[submodule "emacs/extensions/hl-todo"]
+	path = emacs/extensions/hl-todo
+	url = https://github.com/tarsius/hl-todo.git
+[submodule "emacs/extensions/pcre2el"]
+	path = emacs/extensions/pcre2el
+	url = https://github.com/joddie/pcre2el.git
