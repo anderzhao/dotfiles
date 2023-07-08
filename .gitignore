@@ -6,3 +6,7 @@
 /emacs/transient
 /emacs/auto-save-list
 /neofetch/
+clash/
+emacs/elpa/
+emacs/projectile-bookmarks.eld
+emacs/recentf

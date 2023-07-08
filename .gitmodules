@@ -52,9 +52,6 @@
 [submodule "emacs/extensions/ws-butler"]
 	path = emacs/extensions/ws-butler
 	url = https://github.com/lewang/ws-butler.git
-[submodule "emacs/extensions/origami"]
-	path = emacs/extensions/origami
-	url = https://github.com/gregsexton/origami.el.git
 [submodule "emacs/extensions/default-text-scale"]
 	path = emacs/extensions/default-text-scale
 	url = https://github.com/purcell/default-text-scale.git
@@ -79,3 +76,36 @@
 [submodule "emacs/extensions/pcre2el"]
 	path = emacs/extensions/pcre2el
 	url = https://github.com/joddie/pcre2el.git
+[submodule "emacs/extensions/projectile"]
+	path = emacs/extensions/projectile
+	url = https://github.com/bbatsov/projectile.git
+[submodule "emacs/extensions/lsp-mode"]
+	path = emacs/extensions/lsp-mode
+	url = https://github.com/emacs-lsp/lsp-mode.git
+[submodule "emacs/extensions/lsp-ui"]
+	path = emacs/extensions/lsp-ui
+	url = https://github.com/emacs-lsp/lsp-ui.git
+[submodule "emacs/extensions/yasnippet"]
+	path = emacs/extensions/yasnippet
+	url = https://github.com/joaotavora/yasnippet.git
+[submodule "emacs/extensions/yasnippet-snippets"]
+	path = emacs/extensions/yasnippet-snippets
+	url = https://github.com/AndreaCrotti/yasnippet-snippets.git
+[submodule "emacs/extensions/auto-yasnippet"]
+	path = emacs/extensions/auto-yasnippet
+	url = https://github.com/abo-abo/auto-yasnippet.git
+[submodule "emacs/extensions/anzu"]
+	path = emacs/extensions/anzu
+	url = https://github.com/emacsorphanage/anzu.git
+[submodule "emacs/extensions/multiple-cursors"]
+	path = emacs/extensions/multiple-cursors
+	url = https://github.com/magnars/multiple-cursors.el.git
+[submodule "emacs/extensions/emacs-libvterm"]
+	path = emacs/extensions/emacs-libvterm
+	url = https://github.com/akermu/emacs-libvterm.git
+[submodule "emacs/extensions/edwina"]
+	path = emacs/extensions/edwina
+	url = https://github.com/ajgrf/edwina.git
+[submodule "emacs/extensions/emacs-rime"]
+	path = emacs/extensions/emacs-rime
+	url = https://github.com/DogLooksGood/emacs-rime.git

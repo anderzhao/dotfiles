@@ -1,107 +1,100 @@
-;; Default Encoding
-(setq prefer-coding-system       'utf-8-unix)
-(setq default-coding-systems     'utf-8-unix)
-(setq keyboard-coding-system     'utf-8-unix)
-(setq terminal-coding-system     'utf-8-unix)
-(setq clipboard-coding-system    'utf-8-unix)
-(setq selection-coding-system    'utf-8-unix)
-(setq buffer-file-coding-system  'utf-8-unix)
-(setq save-buffer-coding-system  'utf-8-unix)
+;;; init.el --- Summary
+;;; Commentary:
+;;; Code:
 
-(setq gc-cons-threshold (* 50 1000 1000))
+;; Default Encoding
+(setq default-file-name-coding-system 'utf-8-unix)
+(setq default-sendmail-coding-system  'utf-8-unix)
+(setq default-terminal-coding-system  'utf-8-unix)
+(setq keyboard-coding-system          'utf-8-unix)
+(setq buffer-file-coding-system       'utf-8-unix)
+(setq selection-coding-system         'utf-8-unix)
+(setq save-buffer-coding-system       'utf-8-unix)
 
 ;; Quiet Startup
+(setq gc-cons-threshold (* 64 1024 1024))
+(setq frame-inhibit-implied-resize t)
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
 (setq inhibit-startup-echo-area-message t)
-
-(setq package-enable-at-startup nil)
-(setq package--init-file-ensured t)
-(setq package-load-list nil)
-
-(setq frame-inhibit-implied-resize t)
+(setq initial-scratch-message nil)
 (setq frame-title-format nil)
 (setq frame-resize-pixelwise t)
+(setq package-enable-at-startup nil)
 
-(setq make-backup-files nil)           ; Forbide to make backup files
-(setq auto-save-default nil)           ; Disable auto save
-(setq delete-by-moving-to-trash t)     ; Deleting files go to OS's trash folder
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+(setq delete-by-moving-to-trash t)
 
-(setq indent-tabs-mode nil)
 (setq comment-style 'indent)
-(setq x-select-enable-clipboard t)
 (setq ring-bell-function 'ignore)
-(setq visible-bell t)
 (setq initial-major-mode 'fundamental-mode)
 
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(setq-default fill-column 80)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'prog-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
 
-(tooltip-mode -1)
+(scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
-
+(tooltip-mode -1)
+(column-number-mode 1)
 (transient-mark-mode 1)
 (global-subword-mode 1)
 
-(setq-default tab-width 2)
-(setq-default indent-tabs-mode nil)
-
-(set-fringe-mode 8)
-
-;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-;; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
-(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-
-(column-number-mode)
-;; Enable line numbers for some modes
 (dolist (mode '(text-mode-hook
                 prog-mode-hook
                 conf-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 1))))
-
-;; Override some modes which derive from the above
 (dolist (mode '(org-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-
-;; Don’t warn for large files (shows up when launching videos)
-(setq large-file-warning-threshold nil)
-;; Don’t warn for following symlinked files
-(setq vc-follow-symlinks t)
-;; Don’t warn when advice is added for functions
-(setq ad-redefinition-action 'accept)
+(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 
-;; Set the font face
-(set-face-attribute 'default nil :font "JetBrains Mono" :weight 'light :height 150)
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "JetBrains Mono" :weight 'light :height 150)
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Iosevka Aile" :weight 'light :height 150)
+(set-face-attribute 'default nil
+		    :font "JetBrains Mono"
+		    :weight 'light
+		    :height 150)
+(set-face-attribute 'fixed-pitch nil
+		    :font "JetBrains Mono"
+		    :weight 'light
+		    :height 150)
+(set-face-attribute 'variable-pitch nil
+		    :font "Iosevka Aile"
+		    :weight 'light
+		    :height 150)
 
+(eval-when-compile
+  (defvar emacs-root-dir (file-truename "~/.config/emacs/"))
+  (defvar emacs-config-dir (concat emacs-root-dir "config/"))
+  (defvar emacs-extension-dir (concat emacs-root-dir "extensions/"))
+  (push (expand-file-name "use-package/" emacs-extension-dir) load-path))
 
-(defvar emacs-root-dir (file-truename "~/.config/emacs/"))
-(defvar emacs-config-dir (concat emacs-root-dir "config/"))
-(defvar emacs-extension-dir (concat emacs-root-dir "extensions/"))
-
-(add-to-list 'load-path (concat emacs-extension-dir "use-package/"))
 (require 'use-package)
 
 (use-package benchmark-init
   :load-path "~/.config/emacs/extensions/benchmark-init"
-  :init
+  :after
   (require 'benchmark-init-loaddefs)
   (benchmark-init/activate)
   :hook (after-init . benchmark-init/deactivate))
 
 (use-package async
   :load-path "~/.config/emacs/extensions/async")
+
 (use-package avy
-  :load-path "~/.config/emacs/extensions/avy")
+  :load-path "~/.config/emacs/extensions/avy"
+  :bind (("C-'" . avy-goto-char-timer)
+         ("C-c C-j" . avy-resume))
+  :config
+  (setq avy-background t
+        avy-all-windows t
+        avy-timeout-seconds 0.3))
+
 (use-package compat
   :load-path "~/.config/emacs/extensions/compat/")
 (use-package dash
@@ -123,11 +116,12 @@
 
 (use-package magit
   :load-path "~/.config/emacs/extensions/magit/lisp/"
-  :config
-  (use-package magit-todos
-    :load-path "~/.config/emacs/extensions/magit-todos")
+  :after
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   :bind ("C-M-;" . magit-status))
+
+(use-package magit-todos
+  :load-path "~/.config/emacs/extensions/magit-todos")
 
 (use-package org
   :load-path "~/.config/emacs/extensions/org-mode/lisp/")
@@ -161,33 +155,30 @@
   :load-path "~/.config/emacs/extensions/company-mode"
   :hook (after-init . global-company-mode)
   :config
-  (setq company-minimum-prefix-length 1
+  (setq company-tooltip-align-annotations t
+        company-tooltip-limit 20
+        company-idle-delay 0.2
+        company-minimum-prefix-length 1
         company-show-quick-access t))
 (use-package flymake
-  :hook (prog-mode . flymake-mode)
-  :config
-  (global-set-key (kbd "M-n") #'flymake-goto-next-error)
-  (global-set-key (kbd "M-p") #'flymake-goto-prev-error))
-
+  :hook (prog-mode . flymake-mode))
 (use-package ace-window
   :load-path "~/.config/emacs/extensions/ace-window"
-  :after (avy)
+  :hook (prog-mode . ace-window-display-mode)
   :bind ("M-o" . ace-window)
   :custom
   (aw-scope 'frame)
   (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  (aw-minibuffer-flag t)
-  :config
-  (ace-window-display-mode 1))
+  (aw-minibuffer-flag t))
 (use-package default-text-scale
   :load-path "~/.config/emacs/extensions/default-text-scale"
-  :config
+  :custom
   (default-text-scale-mode)
   :bind (("C-M-=" . default-text-scale-increase)
          ("C-M--" . default-text-scale-decrease)))
 (use-package move-dup
   :load-path "~/.config/emacs/extensions/move-dup"
-  :config (move-dup-mode t))
+  :hook (prog-mode . global-move-dup-mode))
 (use-package evil-nerd-commenter
   :load-path "~/.config/emacs/extensions/evil-nerd-commenter"
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
@@ -200,17 +191,97 @@
 (use-package yaml-mode
   :load-path "~/.config/emacs/extensions/yaml-mode"
   :mode ("\\.yml\\'" . yaml-mode))
-(use-package origami
-  :load-path "~/.config/emacs/extensions/origami"
-  :hook ((yaml-mode . origami-mode)))
-
 
 (use-package which-key
   :load-path "~/.config/emacs/extensions/which-key"
-  :config (which-key-mode)
+  :commands (which-key-mode)
+  :config (which-key-mode 1)
   (setq which-key-idle-delay 0.3))
 
 (use-package alert
   :load-path "~/.config/emacs/extensions/alert"
   :config
   (setq alert-default-style 'notifications))
+
+(use-package projectile
+  :load-path "~/.config/emacs/extensions/projectile"
+  :commands (projectile-mode)
+  :config
+  (setq projectile-cache-file (expand-file-name "~/.cache/projectile.cache" user-emacs-directory))
+  (projectile-mode 1)
+  (define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map))
+
+(use-package lsp-mode
+  :load-path "~/.config/emacs/extensions/lsp-mode"
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "c-c 1")
+  :config
+  (1sp-enable-which-key-integration t))
+
+(use-package lsp-ui
+  :load-path "~/.config/emacs/extensions/lsp-ui"
+  :after (lsp-mode)
+  :commands (lsp-ui-mode)
+  :hook (lsp-mode . lsp-ui-mode))
+
+;; Templates
+(use-package yasnippet
+  :load-path "~/.config/emacs/extensions/yasnippet"
+  :commands (yas-global-mode)
+  :config (yas-global-mode 1))
+(use-package yasnippet-snippets
+  :load-path "~/.config/emacs/extensions/yasnippet-snippets"
+  :after (yasnippet))
+(use-package auto-yasnippet
+  :load-path "~/.config/emacs/extensions/auto-yasnippet"
+  :bind (("C-c & w" . aya-create)
+	 ("C-c & y" . aya-expand))
+  :config
+  (setq aya-persist-snippets-dir (concat user-emacs-directory "/snippets")))
+
+
+(use-package anzu
+  :load-path "~/.config/emacs/extensions/anzu")
+
+(use-package multiple-cursors
+  :load-path "~/.config/emacs/extensions/multiple-cursors"
+  :bind (("C-S-c" . mc/edit-lines) ;; 每行一个光标
+         ("C->" . mc/mark-next-like-this-symbol) ;; 全选光标所在单词并在下一个单词增加一个光标。通常用来启动一个流程
+         ("C-M->" . mc/skip-to-next-like-this) ;; 跳过当前单词并跳到下一个单词，和上面在同一个流程里。
+         ("C-<" . mc/mark-previous-like-this-symbol) ;; 同样是开启一个多光标流程，但是是「向上找」而不是向下找。
+         ("C-M-<" . mc/skip-to-previous-like-this) ;; 跳过当前单词并跳到上一个单词，和上面在同一个流程里。
+         ("C-c C->" . mc/mark-all-symbols-like-this))) ;; 直接多选本 buffer 所有这个单词
+
+(use-package vterm
+  :load-path "~/.config/emacs/extensions/emacs-libvterm"
+  :config
+  (setq vterm-kill-buffer-on-exit t))
+
+(use-package edwina
+  :load-path "~/.config/emacs/extensions/edwina"
+  :commands (edwina-setup-dwm-keys edwina-mode)
+  :config
+  ;; 让所有 display-buffer 动作都新增一个 window （而不是复用已经打开此 buffer 的 window）
+  (setq display-buffer-base-action '(display-buffer-below-selected))
+  ;; 以下定义会被 (edwina-setup-dwm-keys) 增加 'M-' 修饰。
+  ;; 我自定义了一套按键，因为原版会把我很常用的 M-d 覆盖掉。
+  (setq edwina-dwm-key-alist
+        '(("r" edwina-arrange)
+          ("j" edwina-select-next-window)
+          ("k" edwina-select-previous-window)
+          ("J" edwina-swap-next-window)
+          ("K" edwina-swap-previous-window)
+          ("h" edwina-dec-mfact)    ;; 主窗口缩窄
+          ("l" edwina-inc-mfact)    ;; 主窗口拉宽
+          ("D" edwina-dec-nmaster)  ;; 减少主窗口的数量
+          ("I" edwina-inc-nmaster)  ;; 增加主窗口的数量
+          ("C" edwina-delete-window) ;; 关闭窗口
+          ("RET" edwina-zoom t)     ;; 交换「主窗口」和「副窗口」
+          ("return" edwina-zoom t)
+          ("S-RET" edwina-clone-window t) ;; 复制一个本窗口
+          ("S-return" edwina-clone-window t)))
+  (edwina-setup-dwm-keys)
+  (edwina-mode 1))
+
+;;; init.el ends here
