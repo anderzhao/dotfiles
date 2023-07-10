@@ -13,9 +13,6 @@
 [submodule "emacs/extensions/magit"]
 	path = emacs/extensions/magit
 	url = https://github.com/magit/magit.git
-[submodule "emacs/extensions/org-mode"]
-	path = emacs/extensions/org-mode
-	url = https://code.orgmode.org/bzg/org-mode.git
 [submodule "emacs/extensions/swiper"]
 	path = emacs/extensions/swiper
 	url = https://github.com/abo-abo/swiper.git
@@ -28,9 +25,6 @@
 [submodule "emacs/extensions/move-dup"]
 	path = emacs/extensions/move-dup
 	url = https://github.com/wyuenho/move-dup.git
-[submodule "emacs/extensions/benchmark-init"]
-	path = emacs/extensions/benchmark-init
-	url = https://github.com/dholm/benchmark-init-el.git
 [submodule "emacs/extensions/ace-window"]
 	path = emacs/extensions/ace-window
 	url = https://github.com/abo-abo/ace-window.git
@@ -43,9 +37,6 @@
 [submodule "emacs/extensions/which-key"]
 	path = emacs/extensions/which-key
 	url = https://github.com/justbur/emacs-which-key.git
-[submodule "emacs/extensions/alert"]
-	path = emacs/extensions/alert
-	url = https://github.com/jwiegley/alert.git
 [submodule "emacs/extensions/evil-nerd-commenter"]
 	path = emacs/extensions/evil-nerd-commenter
 	url = https://github.com/redguardtoo/evil-nerd-commenter.git
@@ -91,18 +82,9 @@
 [submodule "emacs/extensions/auto-yasnippet"]
 	path = emacs/extensions/auto-yasnippet
 	url = https://github.com/abo-abo/auto-yasnippet.git
-[submodule "emacs/extensions/anzu"]
-	path = emacs/extensions/anzu
-	url = https://github.com/emacsorphanage/anzu.git
 [submodule "emacs/extensions/multiple-cursors"]
 	path = emacs/extensions/multiple-cursors
 	url = https://github.com/magnars/multiple-cursors.el.git
-[submodule "emacs/extensions/emacs-libvterm"]
-	path = emacs/extensions/emacs-libvterm
-	url = https://github.com/akermu/emacs-libvterm.git
-[submodule "emacs/extensions/edwina"]
-	path = emacs/extensions/edwina
-	url = https://github.com/ajgrf/edwina.git
 [submodule "emacs/extensions/emacs-rime"]
 	path = emacs/extensions/emacs-rime
 	url = https://github.com/DogLooksGood/emacs-rime.git
