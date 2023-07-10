@@ -55,9 +55,6 @@
 [submodule "emacs/extensions/default-text-scale"]
 	path = emacs/extensions/default-text-scale
 	url = https://github.com/purcell/default-text-scale.git
-[submodule "emacs/extensions/magit-todo"]
-	path = emacs/extensions/magit-todo
-	url = https://github.com/alphapapa/magit-todos.git
 [submodule "emacs/extensions/async"]
 	path = emacs/extensions/async
 	url = https://github.com/jwiegley/emacs-async.git
