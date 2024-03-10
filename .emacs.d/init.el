@@ -146,6 +146,7 @@
 (use-package projectile
   :ensure t
   :config
+  (setq projectile-cache-file (expand-file-name ".cache/projectile.cache" user-emacs-directory))
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map))
 
@@ -158,7 +159,13 @@
         avy-all-windows t
         avy-timeout-seconds 0.3))
 
-(use-package eglot :ensure t)
+(use-package eglot
+  :ensure t
+  :config
+  (setq eglot-eldoc-function 'ignore)
+  (setq eldoc-echo-area-use-multiline-p nil))
+
+(use-package lua-mode :ensure t)
 
 (use-package treesit
   :when (and (fboundp 'treesit-available-p)
@@ -213,7 +220,17 @@
   (add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-mod-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.y[a]?ml\\'" . yaml-ts-mode)))
+  (add-to-list 'auto-mode-alist '("\\.y[a]?ml\\'" . yaml-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode)))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this-symbol)
+         ("C-M->" . mc/skip-to-next-like-this)
+         ("C-<" . mc/mark-previous-like-this-symbol)
+         ("C-M-<" . mc/skip-to-previous-like-this)
+         ("C-c C->" . mc/mark-all-symbols-like-this)))
 
 (setq custom-file "~/.emacs.d/custom.el")
 (unless (file-exists-p custom-file)
