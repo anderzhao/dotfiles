@@ -37,10 +37,18 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
-(column-number-mode 1)
+;;(column-number-mode 1)
 (transient-mark-mode 1)
 (global-subword-mode 1)
 ;;(global-visual-line-mode 1)
+
+(use-package prog-mode
+  :hook ((prog-mode . column-number-mode)
+	 (prog-mode . display-line-numbers-mode)
+	 (prog-mode . electric-pair-mode)
+	 (prog-mode . flymake-mode)
+	 (prog-mode . hs-minor-mode)
+	 (prog-mode . prettify-symbols-mode)))
 
 (dolist (mode '(text-mode-hook
                 prog-mode-hook
@@ -163,9 +171,14 @@
   :ensure t
   :config
   (setq eglot-eldoc-function 'ignore)
-  (setq eldoc-echo-area-use-multiline-p nil))
+  (setq eldoc-echo-area-use-multiline-p nil)
+  :hook ((python-mode . eglot-ensure)
+	 (lua-mode . eglot-ensure))
+  :bind ("C-c e f" . eglot-format))
 
-(use-package lua-mode :ensure t)
+(use-package lua-mode
+  :ensure t
+  :mode ("\\.lua\\'" . lua-mode))
 
 (use-package treesit
   :when (and (fboundp 'treesit-available-p)
@@ -221,7 +234,8 @@
   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.y[a]?ml\\'" . yaml-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode)))
+  ;;  (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-ts-mode))
+  )
 
 (use-package multiple-cursors
   :ensure t
