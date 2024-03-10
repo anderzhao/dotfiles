@@ -49,7 +49,8 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+--beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init("~/.config/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -69,7 +70,6 @@ awful.layout.layouts = {
 	-- awful.layout.suit.tile.bottom,
 	-- awful.layout.suit.fair,
 	-- awful.layout.suit.spiral.dwindle,
-	awful.layout.suit.max,
 	awful.layout.suit.tile,
 	-- awful.layout.suit.tile.left,
 	-- awful.layout.suit.tile.top,
@@ -78,6 +78,7 @@ awful.layout.layouts = {
 	-- awful.layout.suit.max.fullscreen,
 	awful.layout.suit.magnifier,
 	awful.layout.suit.corner.nw,
+	awful.layout.suit.max,
 	-- awful.layout.suit.corner.ne,
 	-- awful.layout.suit.corner.sw,
 	-- awful.layout.suit.corner.se,
@@ -142,6 +143,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
+mytextclock.font = "Iosevka Aile 12"
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -203,7 +205,8 @@ awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+	awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s,
+	awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
@@ -226,29 +229,33 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mytasklist = awful.widget.tasklist {
 		screen  = s,
 		filter  = awful.widget.tasklist.filter.currenttags,
-		buttons = tasklist_buttons
+		buttons = tasklist_buttons,
+		style = {
+		   font = "Iosevka"
+		}
 	}
 
-	-- Create the wibox
-	s.mywibox = awful.wibar({ position = "top", screen = s })
+	-- Create the wib
+	s.mywibox = awful.wibar({ position = "top", screen = s, height = 24 })
 
 	-- Add widgets to the wibox
 	s.mywibox:setup {
 		layout = wibox.layout.align.horizontal,
 		{ -- Left widgets
 			layout = wibox.layout.fixed.horizontal,
-			mylauncher,
+			s.mylayoutbox,
+			--mylauncher,
 			s.mytaglist,
-			s.mypromptbox,
+			--s.mypromptbox,
 		},
 		--        s.mytasklist, -- Middle widget
 		nil,
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
-			mykeyboardlayout,
+			--mykeyboardlayout,
 			wibox.widget.systray(),
 			mytextclock,
-			s.mylayoutbox,
+			--s.mylayoutbox,
 		},
 	}
 end)
@@ -581,6 +588,7 @@ client.connect_signal("request::titlebars", function(c)
 			buttons = buttons,
 			layout  = wibox.layout.fixed.horizontal
 		},
+		nil,
 		--        { -- Middle
 		--            { -- Title
 		--                align  = "center",

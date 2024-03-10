@@ -11,7 +11,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "sans 8"
+theme.font          = "Iosevka Aile 8"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c"
@@ -97,7 +97,8 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar
 theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = themes_path.."default/background.png"
+--theme.wallpaper = themes_path.."default/background.png"
+theme.wallpaper = "~/.config/awesome/wallpapers/the_great_wave_of_kanagawa.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."default/layouts/fairhw.png"
@@ -125,6 +126,13 @@ theme.awesome_icon = theme_assets.awesome_icon(
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
+
+theme.taglist_fg_focus    = "#3992af"
+theme.taglist_fg_occupied = "#164b5d"
+theme.taglist_fg_urgent   = "#ED7572"
+theme.taglist_fg_empty    = "#828282"
+theme.taglist_spacing     = 2
+theme.taglist_font        = "awesomewm 12"
 
 return theme
 
