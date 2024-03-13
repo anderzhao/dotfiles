@@ -205,11 +205,121 @@ awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s,
-	awful.layout.layouts[1])
+	-- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+	awful.tag.add(
+		"1",
+		{
+			icon               = "/home/config/userdirs/Download/icons64/182507_walk_cat_walk_cat.png",
+			layout             = awful.layout.layouts[1],
+			master_fill_policy = "master_width_factor",
+			gap_single_client  = true,
+			gap                = 15,
+			screen             = s,
+			selected           = true,
+			icon_only          = true,
+		}
+	)
+	awful.tag.add(
+		"2",
+		{
+			icon               = "/home/config/userdirs/Download/icons64/182510_cat_slippers_cat_slippers.png",
+			layout             = awful.layout.layouts[1],
+			master_fill_policy = "master_width_factor",
+			gap_single_client  = true,
+			gap                = 15,
+			screen             = s,
+			icon_only          = true,
+		}
+	)
+	awful.tag.add(
+		"3",
+		{
+			icon               = "/home/config/userdirs/Download/icons64/185520_cat_pirate_cat_pirate.png",
+			layout             = awful.layout.layouts[1],
+			master_fill_policy = "master_width_factor",
+			gap_single_client  = true,
+			gap                = 15,
+			screen             = s,
+			icon_only          = true,
+		}
+	)
+	awful.tag.add(
+		"4",
+		{
+			icon               = "/home/config/userdirs/Download/icons64/185524_acrobat_acrobat_cat_cat.png",
+			layout             = awful.layout.layouts[1],
+			master_fill_policy = "master_width_factor",
+			gap_single_client  = true,
+			gap                = 15,
+			screen             = s,
+			selected           = false,
+			icon_only          = true,
+		}
+	)
+	awful.tag.add(
+		"5",
+		{
+			icon               = "/home/config/userdirs/Download/icons64/182514_cat_cat_hiss_hiss.png",
+			layout             = awful.layout.layouts[1],
+			master_fill_policy = "master_width_factor",
+			gap_single_client  = true,
+			gap                = 15,
+			screen             = s,
+			icon_only          = true,
+		}
+	)
+	awful.tag.add(
+		"6",
+		{
+			icon               = "/home/config/userdirs/Download/icons64/182519_cat_fish_fish_cat.png",
+			layout             = awful.layout.layouts[1],
+			master_fill_policy = "master_width_factor",
+			gap_single_client  = true,
+			gap                = 15,
+			screen             = s,
+			icon_only          = true,
+		}
+	)
+	awful.tag.add(
+		"7",
+		{
+			icon               = "/home/config/userdirs/Download/icons64/185528_sleep_cat_sleep_cat.png",
+			layout             = awful.layout.layouts[1],
+			master_fill_policy = "master_width_factor",
+			gap_single_client  = true,
+			gap                = 15,
+			screen             = s,
+			selected           = false,
+			icon_only          = true,
+		}
+	)
+	awful.tag.add(
+		"8",
+		{
+			icon               = "/home/config/userdirs/Download/icons64/182515_cat_yarn_tied_yarn_cat_tied.png",
+			layout             = awful.layout.layouts[1],
+			master_fill_policy = "master_width_factor",
+			gap_single_client  = true,
+			gap                = 15,
+			screen             = s,
+			icon_only          = true,
+		}
+	)
+	awful.tag.add(
+		"9",
+		{
+			icon               = "/home/config/userdirs/Download/icons64/182521_clean_cat_clean_cat.png",
+			layout             = awful.layout.layouts[1],
+			master_fill_policy = "master_width_factor",
+			gap_single_client  = true,
+			gap                = 15,
+			screen             = s,
+			icon_only          = true,
+		}
+	)
 
 	-- Create a promptbox for each screen
-	s.mypromptbox = awful.widget.prompt()
+	-- s.mypromptbox = awful.widget.prompt()
 	-- Create an imagebox widget which will contain an icon indicating which layout we're using.
 	-- We need one layoutbox per screen.
 	s.mylayoutbox = awful.widget.layoutbox(s)
@@ -230,13 +340,13 @@ awful.screen.connect_for_each_screen(function(s)
 		screen  = s,
 		filter  = awful.widget.tasklist.filter.currenttags,
 		buttons = tasklist_buttons,
-		style = {
-		   font = "Iosevka"
+		style   = {
+			font = "Iosevka"
 		}
 	}
 
 	-- Create the wib
-	s.mywibox = awful.wibar({ position = "top", screen = s, height = 24 })
+	s.mywibox = awful.wibar({ position = "top", screen = s, height = 32 })
 
 	-- Add widgets to the wibox
 	s.mywibox:setup {
@@ -617,6 +727,15 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+--client.connect_signal("focus", function(c)
+--    local idx = c.first_tag.index
+--    awful.tag.seticon(
+--       "/home/config/userdirs/Download/icons64/6451981_transportation_logistic_package_box_delivery_shipping_truck.png",
+--       c.first_tag)
+--end)
+
+
 
 awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf")
 beautiful.useless_gap = 7
