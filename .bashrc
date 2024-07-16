@@ -24,7 +24,6 @@ export GPG_TTY=$(tty)
 export EDITOR='vim'
 export HISTCONTROL=ignoreboth
 
-
 # Funcation
 function extract () {
         if [ -f $1 ] ; then
@@ -54,9 +53,11 @@ bind -m emacs -x     '"\eh": run-help'
 # Auto cd in path
 shopt -s autocd
 
-# resize window
+# Resize window
 shopt -s checkwinsize
 
 # Not found command
 source /usr/share/doc/pkgfile/command-not-found.bash
 
+# Completion
+source /usr/share/bash-completion/bash_completion
