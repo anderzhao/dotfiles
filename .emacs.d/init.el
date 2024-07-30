@@ -58,9 +58,10 @@
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;;; font
-(set-face-attribute 'default        nil :font "JetBrains Mono" :weight 'normal   :height 120)
-(set-face-attribute 'fixed-pitch    nil :font "JetBrains Mono" :weight 'bold     :height 120)
-(set-face-attribute 'variable-pitch nil :font "Iosevka Aile"   :weight 'demibold :height 120)
+;(set-face-attribute 'default        nil :font "JetBrains Mono" :weight 'normal   :height 120)
+;(set-face-attribute 'fixed-pitch    nil :font "JetBrains Mono" :weight 'bold     :height 120)
+;(set-face-attribute 'variable-pitch nil :font "Iosevka Aile"   :weight 'demibold :height 120)
+(set-face-attribute 'default nil :height 128)
 
 (setq default-frame-alist
       '((width . 128)
@@ -173,6 +174,7 @@
   (setq eglot-eldoc-function 'ignore)
   (setq eldoc-echo-area-use-multiline-p nil)
   :hook ((python-mode . eglot-ensure)
+	 (python-ts-mode . eglot-ensure)
 	 (lua-mode . eglot-ensure))
   :bind ("C-c e f" . eglot-format))
 
@@ -245,6 +247,8 @@
          ("C-<" . mc/mark-previous-like-this-symbol)
          ("C-M-<" . mc/skip-to-previous-like-this)
          ("C-c C->" . mc/mark-all-symbols-like-this)))
+
+(use-package simple-httpd :ensure t)
 
 (setq custom-file "~/.emacs.d/custom.el")
 (unless (file-exists-p custom-file)
