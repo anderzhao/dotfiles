@@ -54,7 +54,7 @@ beautiful.wallpaper = "/home/config/.config/awesome/wallpapers/the_great_wave_of
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
-editor = os.getenv("EDITOR") or "vim"
+editor = os.getenv("EDITOR") or "emacs"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -213,7 +213,7 @@ awful.screen.connect_for_each_screen(function(s)
 			layout = wibox.layout.fixed.horizontal,
 			mylauncher,
 			s.mytaglist,
-			s.mypromptbox,
+			-- s.mypromptbox,
 		},
 		-- s.mytasklist, -- Middle widget
 		nil,
