@@ -31,7 +31,8 @@
 (setq-default fill-column 80)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'prog-mode-hook 'turn-on-auto-fill)
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
+;;(add-hook 'org-mode-hook 'turn-on-auto-fill)
+;;(add-hook 'elisp-mode-hook 'turn-off-auto-fill)
 
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
@@ -249,6 +250,106 @@
          ("C-c C->" . mc/mark-all-symbols-like-this)))
 
 (use-package simple-httpd :ensure t)
+
+(use-package org
+  :ensure t
+  :hook ((org-mode . org-indent-mode)
+	 (org-mode . visual-line-mode)
+	 (org-mode . org-agenda-start-with-log-mode)
+	 (org-mode . (lambda () (ido-mode 'both))))
+  :config
+  (setq org-directory "~/project/"
+	org-agenda-files '("~/project/org/")
+	org-default-notes-file "~/project/org/inbox.org"
+	org-log-done 'time
+	org-log-into-drawer t
+	org-ellipsis " ▾"
+	org-hide-emphasis-markers t
+	org-use-fast-todo-selection t
+	org-refile-use-outline-path t
+	org-completion-use-ido t
+	org-outline-path-complete-in-steps nil
+	org-agenda-dim-blocked-tasks nil
+	org-agenda-compact-blocks t
+	org-indirect-buffer-display 'current-window
+	org-treat-S-cursor-todo-selection-as-state-change nil)
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+	  (sequence "HOLD(h@/!)" "WAIT(w@/!)" "|" "CANC(c@/!)")))
+  (setq org-todo-keyword-faces
+	'(("TODO" :foreground "red" :weight bold)
+	  ("NEXT" :foreground "blue" :weight bold)
+	  ("DONE" :foreground "forest green" :weight bold)
+	  ("WAIT" :foreground "orange" :weight bold)
+	  ("HOLD" :foreground "magenta" :weight bold)
+	  ("CANC" :foreground "forest green" :weight bold)))
+  (setq org-todo-state-tags-triggers
+	'(("CANC" ("CANC" . t))
+	  ("WAIT" ("WAIT" . t))
+	  ("HOLD" ("HOLD" . t))
+	  ( done  ("WAIT") ("HOLD"))
+	  ("TODO" ("WAIT") ("CANC") ("HOLD"))
+	  ("NEXT" ("WAIT") ("CANC") ("HOLD"))
+	  ("DONE" ("WAIT") ("CANC") ("HOLD"))))
+  (setq org-capture-templates
+	'(("t" "Todo" entry (file "~/project/org/inbox.org")
+           "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+          ("n" "Note" entry (file "~/project/org/inbox.org")
+           "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+          ("j" "Journal" entry (file+datetree "~/prject/org/journal.org")
+           "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n" :clock-in t :clock-resume t :empty-lines 1)
+          ("c" "Capture" entry (file "~/project/org/inbox.org")
+           "* TODO Review %c\n%U\n" :immediate-finish t)))
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+  (setq org-refile-targets '((nil :maxlevel . 9)
+                             (org-agenda-files :maxlevel . 9)))
+  (setq ido-everywhere t
+	ido-max-directory-size 100000
+	ido-default-file-method 'selected-window
+	ido-default-buffer-method 'selected-window)
+  (setq org-agenda-custom-commands
+	'(("T" "TODO"
+	   ((todo "TODO"
+		  ((org-agenda-overriding-header "In Planning")))))
+	  ("N" "Notes" tags "NOTE"
+           ((org-agenda-overriding-header "Notes")
+            (org-tags-match-list-sublevels t)))
+	  (" " "Agenda"
+	   ((agenda "" nil)
+	    (tags "INBOX"
+                  ((org-agenda-overriding-header "Tasks to Inbox")
+                   (org-tags-match-list-sublevels nil)))
+	    (todo "NEXT"
+		  ((org-agenda-overriding-header "Ready to Work")
+		   (org-agenda-files org-agenda-files)))
+	    (todo "WAIT"
+		  ((org-agenda-overriding-header "Waiting on External")
+		   (org-agenda-files org-agenda-files)))
+	    (todo "HOLD"
+		  ((org-agenda-overriding-header "On Hold")
+		   (org-agenda-files org-agenda-files)))
+	    (todo "CANC"
+		  ((org-agenda-overriding-header "Cancelled Project")
+		   (org-agenda-files org-agenda-files)))))
+  )))
+
+(global-set-key (kbd "C-c c") 'org-capture)
+
+(use-package org-bullets
+  :ensure t
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+(use-package visual-fill-column
+  :ensure t
+  :defer t
+  :config
+  (setq visual-fill-column-width 100
+	visual-fill-column-center-text t)
+  :hook ((org-mode . visual-fill-column-mode)))
+
 
 (setq custom-file "~/.emacs.d/custom.el")
 (unless (file-exists-p custom-file)
